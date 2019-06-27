@@ -1,22 +1,10 @@
 from .module_header import ObjectCache
 import numpy as np
 
-from typing import Dict, Callable, Tuple, Iterator, Union
+from typing import Callable, Tuple, Iterator
 
 
 Dot_Mapping = Callable[[Tuple[float, ...]], float]
-
-
-def _barycentric_points(step):
-    s = round(1/step, 4)
-    step = step/(step-1)*step
-    points = list()
-
-    for i in range(step+1):
-        z = 1 - i*s
-        xs = np.linspace(0, i*s, step)
-        for x, y in zip(xs, i*s - xs):
-            yield (x, y, z)
 
 
 class Space(metaclass=ObjectCache):
@@ -39,19 +27,19 @@ class Dot_Space(Space):
             yield 0
 
         elif s == 1:
-            for x in np.linspace(0, 1, self.max):
+            for x in np.linspace(0, 1, self.nb):
                 yield x
 
         elif s == 2:
-            x_s = np.linspace(0, 1, self.max)
+            x_s = np.linspace(0, 1, self.nb)
             for x, y in zip(x_s, 1 - x_s):
                 yield (x, y)
 
         elif s == 3:
-            h = 1/self.max
-            for i in range(self.max + 1):
+            h = 1/self.nb
+            for i in range(self.nb + 1):
                 z = 1 - i*h
-                xs = np.linspace(0, i*h, self.max)
+                xs = np.linspace(0, i*h, self.nb)
                 for x, y in zip(xs, i*h - xs):
                     yield (x, y, z)
 

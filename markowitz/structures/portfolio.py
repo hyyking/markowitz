@@ -49,6 +49,9 @@ class m_Portfolio(m_structs.PF_TYPE):
     def __setitem__(self, key: str, item: m_types.A_TYPE) -> None:
         self.assets[key] = item
 
+    def __len__(self):
+        return len(self.assets)
+
     def _covar_m(self) -> m_structs.DataFrame:
         names = tuple(self.assets.keys())
         avgs = tuple(titre.avg for titre in self.assets.values())
