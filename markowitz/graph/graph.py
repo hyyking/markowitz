@@ -14,6 +14,9 @@ class _Graph(object, metaclass=ObjectCache):
     def __init__(self, vs_cache_ref: CacheRef) -> None:
         self.vspace = vs_cache_ref
 
+    def points(self):
+        return None
+
 
 class NormalGraph(_Graph):
     const1 = np.sqrt(2*np.pi)
@@ -38,7 +41,7 @@ class NormalGraph(_Graph):
         )
 
     def points(self, scale=1):
-        x = np.linspace(0, 1 * scale, self.precision)
+        x = np.linspace(0, 1, self.precision)
         y = self.y(scale)
         return (x, y)
 
@@ -58,7 +61,7 @@ class EfficientFrontier(_Graph):
     def points(self, scale=1):
         lin_mu = np.fromiter(self.vspace.ref().map(self.mu), float)*scale
         lin_sigma = np.fromiter(self.vspace.ref().map(self.sigma), float)*scale
-        
+
         if self.pf_size == 3:
             return (lin_sigma, lin_mu, np.linspace(0, 1, self.precision))
         else:

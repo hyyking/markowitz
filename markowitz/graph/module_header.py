@@ -15,6 +15,13 @@ class CacheRef(object):
     def ref(self):
         return ObjectCache.get(self._signature)
 
+    def has(self, check):
+        t, s = self._signature
+        if check == t or check == s:
+            return True
+        else:
+            return False
+
 
 class ObjectCache(type):
     _cached: Dict[Tuple[int, int], object] = dict()
