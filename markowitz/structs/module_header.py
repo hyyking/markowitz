@@ -6,9 +6,29 @@ import numpy as np
 
 # Public Interface
 # ----------------------------------------------------------------------------------------------------------
-__all__ = ['m_types', 'm_utils', 'm_structs', 'm_maths']
+__all__ = ['m_types', 'm_utils', 'm_structs', 'm_maths', '_DBCache']
+
+# Struct Meta
+# ----------------------------------------------------------------------------------------------------------
 
 
+class _Cache(type):
+    cache: Dict[str, "_LOCAL_A_TYPE"] = dict()
+
+    def __call__(cls, *ls, **kw) -> "_LOCAL_A_TYPE":
+        names = ls[0]
+
+        if isinstance(names, str):  # Asset loading
+            name = names
+            if name not in cls.cache:
+                cls.cache[name] = super(_Cache, cls).__call__(*ls, **kw)
+ 
+        elif isinstance(names, list):  # Portfolio loading
+            name = "/".join([n.name for n in names])
+            if name not in cls.cache:
+                cls.cache[name] = super(_Cache, cls).__call__(*ls, **kw)
+
+        return cls.cache[name]
 # Types namespace
 # ----------------------------------------------------------------------------------------------------------
 
@@ -26,7 +46,7 @@ class _data_types:
     FLOAT_COLLECTION = Tuple[float, ...]
 
 
-class _LOCAL_A_TYPE(object):
+class _LOCAL_A_TYPE(object, metaclass=_Cache):
     """Public API to Create Portfolio Compatible Assets"""
     # ----- Attributes
     # ___ Private
@@ -48,7 +68,7 @@ class _A_types(object):
     A_TYPE_MAP = Dict[str, A_TYPE]
 
 
-class _LOCAL_PF_TYPE(object):
+class _LOCAL_PF_TYPE(object, metaclass=_Cache):
     """Public API for creating a Portfolio"""
     # ----- Attributes
     assets:         _A_types.A_TYPE_MAP
@@ -113,3 +133,5 @@ class m_maths:
                     mid.append((point[i]*point[o])/2)
             matrix.append(m_structs.array(mid))
         return m_structs.array(matrix)
+
+
