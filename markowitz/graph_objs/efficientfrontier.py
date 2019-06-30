@@ -14,10 +14,14 @@ class EfficientFrontier(_Graph):
         lin_mu = dots.map(self.mu)
         lin_sigma = dots.map(self.sigma)
 
-        if self.pf_size == 3:
-            for x, y, z in zip(lin_sigma, lin_mu, np.linspace(0, 1, dots.counter)):
-                yield (x*scale, y*scale, z)
-        else:
-            for x, y in zip(lin_sigma, lin_mu):
-                yield (x*scale, y*scale)
+        for x, y in zip(lin_sigma, lin_mu):
+            yield (x*scale, y*scale)
 
+"""
+THREE D EXTENTION CODE
+
+
+if self.pf_size == 3:
+    for x, y, z in zip(lin_sigma, lin_mu, np.linspace(0, 1, dots.counter)):
+        yield (x*scale, y*scale, z)
+"""

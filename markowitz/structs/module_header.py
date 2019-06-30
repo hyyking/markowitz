@@ -13,22 +13,44 @@ __all__ = ['m_types', 'm_utils', 'm_structs', 'm_maths', '_DBCache']
 
 
 class _Cache(type):
+    deb = False
     cache: Dict[str, "_LOCAL_A_TYPE"] = dict()
 
+    @staticmethod
+    def debug():
+        _Cache.deb = True
+
     def __call__(cls, *ls, **kw) -> "_LOCAL_A_TYPE":
+        if cls.deb:
+            print("\n -- Received:", ls[0])
+
         names = ls[0]
 
         if isinstance(names, str):  # Asset loading
             name = names
             if name not in cls.cache:
+                if cls.deb:
+                    print("Loading Asset:", name)
                 cls.cache[name] = super(_Cache, cls).__call__(*ls, **kw)
- 
+
         elif isinstance(names, list):  # Portfolio loading
             name = "/".join([n.name for n in names])
             if name not in cls.cache:
+                if cls.deb:
+                    print("Loading Portfolio:", name)
                 cls.cache[name] = super(_Cache, cls).__call__(*ls, **kw)
 
+        if cls.deb:
+            print(" -- Returning:", name, "\n")
+
         return cls.cache[name]
+
+    @staticmethod
+    def get(key):
+        if _Cache.deb:
+            print("\nRequest:", key, "\n")
+        return _Cache.cache[key]
+
 # Types namespace
 # ----------------------------------------------------------------------------------------------------------
 
