@@ -1,44 +1,9 @@
-# This is a comment
 
- non_scaled_low_prec (precision=10)
+& Test (scale=100, precision=100)
 {
-    [ NormalGraph(axa) | NormalGraph(peugeot) | NormalGraph(lvmh) ]
-
-    [                    EfficientFrontier(axa/peugeot/lvmh)      ]
-
-}
-
-
- scaled (precision=1000, scale=100)
-{
-    [ NormalGraph(axa) | NormalGraph(peugeot) | NormalGraph(lvmh) ]
-
-    [                    EfficientFrontier(axa/peugeot/lvmh)      ]
-
-}
-
-
- scaled_new_line (scale=100, line=g--)
-{
-    [ NormalGraph(axa) | NormalGraph(peugeot) | NormalGraph(lvmh) ]
-
-    [                    EfficientFrontier(axa/peugeot/lvmh)      ]
-
-}
-
-
- mult_on_one (scale=100)
-{
-    [ NormalGraph(axa) NormalGraph(peugeot) | NormalGraph(peugeot) | NormalGraph(lvmh) ]
-
-    [                    EfficientFrontier(axa/peugeot/lvmh)      ]
-
-}
-
-& papa (scale=100)
-{
-    [ NormalGraph(peugeot) | NormalGraph(renault) ]
-    [       EfficientFrontier(peugeot/renault)    ]
+    [       NormalGraph(peugeot) | NormalGraph(lvmh) | NormalGraph(renault) | NormalGraph(axa) | NormalGraph(airliquide)]
+    [       EfficientFrontier(peugeot/lvmh) | EfficientFrontier(renault/peugeot/axa) | EfficientFrontier(axa/airliquide) ]
+    [       EfficientFrontier(peugeot/axa) | EfficientFrontier(renault/axa) ]
 }
 
 

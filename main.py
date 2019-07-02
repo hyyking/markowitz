@@ -1,14 +1,21 @@
 from markowitz.structs import DBCache, MetaDBCache
 from markowitz.layout_parser import from_file
-from markowitz.layout_builder import consumme_window, show
+from markowitz import consumme_window, show
 
 import argparse as ap
 
+
 def build_arg_parser():
-    parser = ap.ArgumentParser(description="Display Assets and Portfolio graphs from layout")
+    parser = ap.ArgumentParser(
+        description="Display Assets and Portfolio graphs from layout"
+    )
+
     parser.add_argument('layout', help="Layout file path")
     parser.add_argument('database', help="Sqlite database path")
-    parser.add_argument('--debug', help="Activate debug mode", action="store_true")
+    parser.add_argument(
+        '--debug', help="Activate debug mode", action="store_true"
+    )
+
     return parser
 
 

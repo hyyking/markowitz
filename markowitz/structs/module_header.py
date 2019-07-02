@@ -48,7 +48,7 @@ class _Cache(type):
     @staticmethod
     def get(key):
         if _Cache.deb:
-            print("\nRequest:", key, "\n")
+            print("\nRequest:", key)
         return _Cache.cache[key]
 
 # Types namespace

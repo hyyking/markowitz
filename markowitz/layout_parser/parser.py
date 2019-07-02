@@ -46,15 +46,17 @@ class Window(object):
                 matrix[i] = [self.cols]
  
             elif rp:  # PAIR
-                gc = gcd(self.cols, rl)
+                mod = self.cols % rl
+                gc = (self.cols - mod)/rl
                 matrix[i] = [gc for _ in range(rl)]
-                matrix[i][0] += self.cols % rl
+                matrix[i][0] += mod
 
             elif not rp:  # IMPAIRE
-                gc = gcd(self.colnb, rl)
+                mod = self.cols % rl
+                gc = (self.cols - mod)/rl
                 matrix[i] = [gc for _ in range(rl)]
-                index = rl/2 + 0.5
-                matrix[i][index] += self.cols % rl
+                index = int(rl/2 - 0.5)
+                matrix[i][index] += mod
             else:
                 print("Don't know how to determin the layout")
 
