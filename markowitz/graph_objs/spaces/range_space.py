@@ -7,11 +7,12 @@ class RangeSpace(object):
 
     def _iter(self, map_func, *map_args):
         width = self.end - self.start
-        step = width/(self.nb-1)
+        step = width/(self.nb)
 
         if map_func is not None:
-            for i in range(self.nb):
-                yield map_func(self.start + i*step, *map_args)
+            for i in range(self.nb + 1):
+                point = self.start + i*step
+                yield point, map_func(point, *map_args)
         else:
             for i in range(self.nb):
                 yield self.start + i*step

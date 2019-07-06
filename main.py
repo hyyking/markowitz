@@ -7,13 +7,13 @@ import argparse as ap
 
 def build_arg_parser():
     parser = ap.ArgumentParser(
-        description="Display Assets and Portfolio graphs from layout"
+        description="Display assets and portfolio graphs from layout"
     )
 
     parser.add_argument('layout', help="Layout file path")
     parser.add_argument('database', help="Sqlite database path")
     parser.add_argument(
-        '--debug', help="Activate debug mode", action="store_true"
+        '--debug', help="activate debug mode", action="store_true"
     )
 
     return parser

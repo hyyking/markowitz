@@ -12,20 +12,15 @@ class NormalGraph(_Graph):
 
     @staticmethod
     def f(point, *args):
-        t1 = np.float64(1/(args[1]*NormalGraph.const1))
-        x = ((point-args[0])/args[1])
+        t1 = 1/(args[1]*NormalGraph.const1)
+        x = (point-args[0])/args[1]
         t2 = np.exp(-0.5*x*x)
         return t1*t2
 
-    def y(self, scale):
-        self.vspace.map(self.f, self.mu*scale, self.sigma*scale),
-
     def points(self, scale=1):
-        xg = RangeSpace(0, 1, self.precision).gen()
-        yg = RangeSpace(-10, 10, self.precision).map(
+        fg = RangeSpace(-10, 10, self.precision).map(
                 self.f,
                 self.mu * scale,
                 self.sigma * scale
             )
-        for x, y in zip(xg, yg):
-            yield (x, y)
+        return fg
