@@ -1,8 +1,10 @@
 from markowitz.structs import DBCache, MetaDBCache
 from markowitz.layout_parser import from_file
-from markowitz import consumme_window, show
+from markowitz import consumme_window
 
 import argparse as ap
+
+from matplotlib.pyplot import show
 
 
 def build_arg_parser():

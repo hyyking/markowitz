@@ -6,13 +6,11 @@ import copy
 settings_types = {
     "precision": int,
     "scale": int,
-    "line": str
 }
 
 default_conf = {
     "scale": 1,
     "precision": 1000,
-    "line": "b-"
 }
 
 class Window(object):

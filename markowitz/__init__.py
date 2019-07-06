@@ -1,6 +1,6 @@
 from .graph_objs import build
 
-from matplotlib.pyplot import show, figure
+from matplotlib.pyplot import figure
 from matplotlib.gridspec import GridSpec
 
 
@@ -21,5 +21,6 @@ def consumme_window(window, db):
             for cls_name, asset_name in col:
                 g = build(db, cls_name, asset_name)
                 data = g.points(scale=window.cfg["scale"])
-                sub.plot(*zip(*data), window.cfg["line"])
+                sub.plot(*zip(*data), label=g.legend)
                 sub.set_title(str(asset_name))
+                sub.legend(loc='upper right')

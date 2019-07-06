@@ -1,7 +1,10 @@
 from .module_header import _Graph, np
 from .spaces import DotationSpace
 
+
 class EfficientFrontier(_Graph):
+    legend = "Efficient Frontier"
+
     def __init__(self, portfolio) -> None:
         self.pf_size = len(portfolio)
         self.mu = portfolio.avg
@@ -16,6 +19,7 @@ class EfficientFrontier(_Graph):
 
         for x, y in zip(lin_sigma, lin_mu):
             yield (x*scale, y*scale)
+
 
 """
 THREE D EXTENTION CODE

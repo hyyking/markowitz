@@ -8,6 +8,8 @@ class NormalGraph(_Graph):
     def __init__(self, asset) -> None:
         self.mu = asset.avg
         self.sigma = asset.stdv
+        self.legend = "N({}, {})".format(
+                round(self.mu, 2), round(self.sigma, 2))
         super(NormalGraph, self).__init__()
 
     @staticmethod
@@ -18,9 +20,9 @@ class NormalGraph(_Graph):
         return t1*t2
 
     def points(self, scale=1):
+        self.legend = "N({}, {})".format(
+                round(self.mu*scale, 2), round(self.sigma*scale, 2))
+
         fg = RangeSpace(-10, 10, self.precision).map(
-                self.f,
-                self.mu * scale,
-                self.sigma * scale
-            )
+                self.f, self.mu * scale, self.sigma * scale)
         return fg
