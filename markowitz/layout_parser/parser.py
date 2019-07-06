@@ -24,8 +24,6 @@ class Window(object):
 
         self.span = self.span_matrix()
 
-        
-
     def span_matrix(self):
         matrix = [
             [None for _ in range(self.cols)]
@@ -64,7 +62,9 @@ class Window(object):
 
 def parse_config(cfg_str):
     cfg = copy.deepcopy(default_conf)
-    
+    if cfg_str is None:
+        return cfg
+
     settings = cfg_str.split(",")
     for setting in settings:
         val = setting.split("=")

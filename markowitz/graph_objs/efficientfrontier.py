@@ -16,7 +16,6 @@ class EfficientFrontier(_Graph):
         dots = DotationSpace(self.pf_size, int(self.precision/10))
         lin_mu = dots.map(self.mu)
         lin_sigma = dots.map(self.sigma)
-
         for x, y in zip(lin_sigma, lin_mu):
             yield (x*scale, y*scale)
 
