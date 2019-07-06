@@ -5,6 +5,7 @@ from matplotlib.gridspec import GridSpec
 
 
 def consumme_window(window, db):
+    """ Consumme windows to create plots """
     fig = figure(window.name)
     gs = GridSpec(window.rows, window.cols, figure=fig)
 
