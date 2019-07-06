@@ -1,14 +1,9 @@
-*
+/*
 !.gitignore
 !main.py
-!test.ly
 !README.md
 
 !markowitz/
-
 !docs/
-!docs/scripts/
-!docs/layouts/
-!docs/img/
 
 
