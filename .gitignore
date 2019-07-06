@@ -4,12 +4,11 @@
 !test.ly
 !README.md
 
-!*/
 !markowitz/*
 
-!img/*
-
-!docs/*
-!docs/scripts/*
+!docs/
+!docs/scripts/
+!docs/layouts/
+!docs/img/
 
 

@@ -6,7 +6,7 @@ from matplotlib.gridspec import GridSpec
 
 def consumme_window(window, db):
     """ Consumme windows to create plots """
-    fig = figure(window.name)
+    fig = figure(window.name, figsize=(15, 10))
     gs = GridSpec(window.rows, window.cols, figure=fig)
 
     for i, _ in enumerate(window.content):

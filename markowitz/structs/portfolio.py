@@ -40,9 +40,6 @@ class m_Portfolio(m_structs.PF_TYPE):
         self.covar_matrix = self._covar_m()
         self.corr_matrix = self._corr_m()
 
-    def __repr__(self) -> str:
-        return str(_portfolio_descriptor(self))
-
     def __getitem__(self, key: str) -> m_types.A_TYPE:
         return self.assets[key]
 
@@ -101,3 +98,6 @@ class m_Portfolio(m_structs.PF_TYPE):
         product = m_maths.dot(m_maths.symmetric_matrix(dot), self.covar_matrix)
         trace = m_maths.trace(product)
         return m_types.M_FLOAT(trace)
+    
+    def recap(self) -> str:
+        return _portfolio_descriptor(self)

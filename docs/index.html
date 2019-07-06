@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
-<title>Présentation slides</title>
+<title>Théorie Moderne du Portefeuille (Markowitz)</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -28,7 +28,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         link.href = 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
 }
-
 </script>
 
 <!--[if lt IE 9]>
@@ -9181,15 +9180,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box 
+/* This file is a compatability layer.  It allows the usage of flexible box
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this 
+`Modern browsers` comments below).  Browsers that are known to implement this
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+ 
+    Internet Explorer 11+
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12571,7 +12570,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for 
+  /* This injects handle bars (a short, wide = symbol) for
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -13070,7 +13069,7 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
-    
+
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
 .ansi-black-bg { background-color: #3E424D; }
@@ -13249,7 +13248,7 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Markowitz">Markowitz<a class="anchor-link" href="#Markowitz">&#182;</a></h3><p>C'est un économiste américain auteur du modèle de « diversification efficiente » des portefeuilles d'actifs financiers. 
+<h3 id="Markowitz">Markowitz<a class="anchor-link" href="#Markowitz">&#182;</a></h3><p>C'est un économiste américain auteur du modèle de « diversification efficiente » des portefeuilles d'actifs financiers.
 Ses Recherches sont récompensé en 1990 par un prix Nobel en Sciences Economiques.</p>
 
 </div>
@@ -13274,7 +13273,7 @@ Ses Recherches sont récompensé en 1990 par un prix Nobel en Sciences Economiqu
     V_t = \ln(X_t) - \ln(X_{t-1})
 \end{align}<p>Le rendement est l'ésperance de variations (+/-) d'un actif</p>
 \begin{align}
-    \overline{R_{titre}} = E(R_{titre} )=\frac{1}{N}\sum\nolimits_{i=0}^{N}R_i   
+    \overline{R_{titre}} = E(R_{titre} )=\frac{1}{N}\sum\nolimits_{i=0}^{N}R_i
 \end{align}<p>Le risque que est l'écart-type (volatilité) des variations (+/-) d'un actif</p>
 \begin{align}
     \sigma_{titre}=\sqrt{\frac{\mathrm{\sum\nolimits_{i=0}^{N}(R_i-\overline{R_{titre}})^2} }{\mathrm{(N-1)} }   }
@@ -13362,7 +13361,7 @@ Ses Recherches sont récompensé en 1990 par un prix Nobel en Sciences Economiqu
 <h3 id="Statistiques-de-Portefeuille">Statistiques de Portefeuille<a class="anchor-link" href="#Statistiques-de-Portefeuille">&#182;</a></h3><p>Calcul de la covariance</p>
 \begin{align}
     cov(R_A,R_B)= E(R_A \cdot R_B ) - E(R_A)\cdot E(R_B)
-\end{align}\begin{align} 
+\end{align}\begin{align}
     \varphi_{AB}= \frac{\mathrm{cov( R_A \cdot R_B )} }{\mathrm{  \sigma_A \sigma_B } }
 \end{align}<p>Calcul de la matrice de covariance pour 3 titres</p>
 \begin{pmatrix}
@@ -13514,7 +13513,7 @@ Ses Recherches sont récompensé en 1990 par un prix Nobel en Sciences Economiqu
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="La-Fronti&#232;re-Efficiente">La Fronti&#232;re Efficiente<a class="anchor-link" href="#La-Fronti&#232;re-Efficiente">&#182;</a></h3><p>Il s'agit de l'ensemble des combinaisons optimales d'actifs pour une distribution donnée.</p>
 <p>On donne son plan par le systeme suivant:</p>
-\begin{cases} 
+\begin{cases}
     R_P(x)     = x \cdot R_A + (1-x) \cdot R_B \\
     \sigma_P(x)= \sqrt{Var(R_P)}
 \end{cases}
@@ -13621,7 +13620,7 @@ Ses Recherches sont récompensé en 1990 par un prix Nobel en Sciences Economiqu
     E(R_p) = \sum_{i=0}^{n}\alpha_i \cdot E(R_i)
 \end{align}<h5 id="La-variance">La variance<a class="anchor-link" href="#La-variance">&#182;</a></h5>\begin{align}
     Var(R_P) = (\sum_{i=0}^{n}\alpha_i \cdot \sigma_i)^2
-\end{align}<p>C'est une forme quadratique d'ordre N donc il existe une matrice symétrique $ N \cdot N $ associée 
+\end{align}<p>C'est une forme quadratique d'ordre N donc il existe une matrice symétrique $ N \cdot N $ associée
 Pour 3 titres on trouve</p>
 \begin{pmatrix}
      \alpha^2_{1}&amp; \frac{\mathrm{\alpha_1\alpha_2} }{\mathrm{2}} &amp;\frac{\mathrm{\alpha_1\alpha_3} }{\mathrm{2}}\\
@@ -13649,10 +13648,10 @@ Pour 3 titres on trouve</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="G&#233;n&#233;ration-du-plan-barycentrique">G&#233;n&#233;ration du plan barycentrique<a class="anchor-link" href="#G&#233;n&#233;ration-du-plan-barycentrique">&#182;</a></h3><p>$ E = 
+<h3 id="G&#233;n&#233;ration-du-plan-barycentrique">G&#233;n&#233;ration du plan barycentrique<a class="anchor-link" href="#G&#233;n&#233;ration-du-plan-barycentrique">&#182;</a></h3><p>$ E =
 \begin{Bmatrix}
      (x, y, z)  \in  \mathbb{R^3}\setminus x + y + z = 1
-\end{Bmatrix} 
+\end{Bmatrix}
 $</p>
 <p><img src="img/rasterizer_screen.png" alt="Image de la génération de l&#39;espace"></p>
 
