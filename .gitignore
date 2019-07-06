@@ -1,4 +1,7 @@
 *
 !markowitz/
+!img/
+!.gitignore
 !main.py
 !test.ly
+!README.md
