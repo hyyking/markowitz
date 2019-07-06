@@ -4,7 +4,7 @@ from markowitz import consumme_window
 
 import argparse as ap
 
-from matplotlib.pyplot import show
+from matplotlib.pyplot import show, style
 
 
 def build_arg_parser():
@@ -22,6 +22,7 @@ def build_arg_parser():
 
 
 if __name__ == "__main__":
+    style.use("bmh")
     args = build_arg_parser().parse_args()
 
     if args.debug:
