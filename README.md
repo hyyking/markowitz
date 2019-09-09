@@ -2,6 +2,9 @@
 
 ## Purpose
 
+Provide utility to create visually appealing and customisable graphic representation of markowitz's
+modern portfolio theory.
+
 ## Usage
 
 For this you will need two files:
