@@ -1,9 +1,11 @@
-/*
+*
 !.gitignore
 !main.py
 !README.md
 
 !markowitz/
 !docs/
+!scripts/
+!layouts/
 
 
