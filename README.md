@@ -1,23 +1,34 @@
-# [Project Paper](https://github.com/hyyking/markowitz/blob/master/docs/rapport.ipynb)
+# PyMarkowitz
 
-## MIT License
+## Purpose
 
-Copyright (c) 2019 Léo Duret
+## Usage
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+For this you will need two files:
+- A layout file (for now see examples in layouts directory)
+- A SQLite database with financial products as single tables with UPPERCASE names and at least the following header: `clot`
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+You can use this package as a CLI
+- `python -m markowitz [LAYOUT] [SQLITE DATABASE]`
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Or as library:
+- Just like the CLI to integrate in your program
+- For financial assets abstractions
+- For graphing objects abstractions
+
+You can extend the available graphs by adding them in the `markowitz/graph_objs` directory in lowercase, be sure to subclass the Graph class
+
+### To be done
+
+- Refactor python code
+- Add better logging
+- Generate documentation
+- Split website in two parts: project and documentation
+- Add package to pypy
+- Add support for other database types
+- Add ability to specify other graph obj directory
+
+### Credits
+
+Produced by Léo Duret as part of his annual project for the CMI EFiQuaS.
+I'd like to thank Adrien Chaillout my partner on this project.
