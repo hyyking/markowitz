@@ -13,10 +13,7 @@ def consumme_window(window, db):
         span = 0
         for o, col in enumerate(window.content[i]):
             sub = fig.add_subplot(
-                gs.new_subplotspec(
-                    (i, o + span),
-                    colspan=int(window.span[i][o])
-                )
+                gs.new_subplotspec((i, o + span), colspan=int(window.span[i][o]))
             )
             span += int(window.span[i][o]) - 1
             for cls_name, asset_name in col:
@@ -24,4 +21,4 @@ def consumme_window(window, db):
                 data = g.points(scale=window.cfg["scale"])
                 sub.plot(*zip(*data), label=g.legend)
                 sub.set_title(str(asset_name))
-                sub.legend(loc='upper right')
+                sub.legend(loc="upper right")

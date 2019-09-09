@@ -13,11 +13,11 @@ class EfficientFrontier(_Graph):
         super(EfficientFrontier, self).__init__()
 
     def points(self, scale=1):
-        dots = DotationSpace(self.pf_size, int(self.precision/10))
+        dots = DotationSpace(self.pf_size, int(self.precision / 10))
         lin_mu = dots.map(self.mu)
         lin_sigma = dots.map(self.sigma)
         for x, y in zip(lin_sigma, lin_mu):
-            yield (x*scale, y*scale)
+            yield (x * scale, y * scale)
 
 
 """

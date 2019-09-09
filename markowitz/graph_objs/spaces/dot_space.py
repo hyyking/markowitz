@@ -2,11 +2,7 @@ import numpy as np
 
 
 class DotationSpace(object):
-    def __init__(
-            self,
-            v_size: int,
-            max_num: int,
-            ) -> None:
+    def __init__(self, v_size: int, max_num: int) -> None:
         self.counter = 0
         self.size = v_size
         self.nb = max_num
@@ -26,14 +22,14 @@ class DotationSpace(object):
                 yield (x, y)
 
         elif s == 3:
-            h = 1/self.nb
+            h = 1 / self.nb
             for i in range(self.nb + 1):
-                z = 1 - i*h
-                xs = np.linspace(0, i*h, self.nb)
-                for x, y in zip(xs, i*h - xs):
+                z = 1 - i * h
+                xs = np.linspace(0, i * h, self.nb)
+                for x, y in zip(xs, i * h - xs):
                     yield (x, y, z)
         else:
-            for els in np.random.dirichlet((1,)*s, self.nb*10):
+            for els in np.random.dirichlet((1,) * s, self.nb * 10):
                 yield tuple(els)
 
     def _iter(self, mapper, *map_args):

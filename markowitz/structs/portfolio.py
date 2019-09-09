@@ -8,34 +8,27 @@ from .module_header import m_types, m_maths, m_utils, m_structs
 def _portfolio_descriptor(portfolio: m_types.PF_TYPE) -> m_structs.DataFrame:
     assets_df = m_structs.DataFrame(
         {
-            '{}'.format(t.name): [len(t.df), t.avg, t.stdv, ""]
+            "{}".format(t.name): [len(t.df), t.avg, t.stdv, ""]
             for t in portfolio.assets.values()
         },
-        index=["len", "avg", "stdv", "COVAR"]
+        index=["len", "avg", "stdv", "COVAR"],
     )
 
     empty_df = m_structs.DataFrame(
-        {"{}".format(t): [""] for t in portfolio.assets},
-        index=["CORR"]
+        {"{}".format(t): [""] for t in portfolio.assets}, index=["CORR"]
     )
 
-    result: m_structs.DataFrame = m_utils.concat([
-        assets_df,
-        portfolio.covar_matrix,
-        empty_df,
-        portfolio.corr_matrix
-    ])
+    result: m_structs.DataFrame = m_utils.concat(
+        [assets_df, portfolio.covar_matrix, empty_df, portfolio.corr_matrix]
+    )
     return result
 
 
 # Public API
 # ----------------------------------------------------------------------------------------------------------
 class m_Portfolio(m_structs.PF_TYPE):
-
     def __init__(self, titres: m_types.A_TYPE_COLLECTION) -> None:
-        self.assets: m_types.A_TYPE_MAP = dict(
-            (titre.name, titre) for titre in titres
-        )
+        self.assets: m_types.A_TYPE_MAP = dict((titre.name, titre) for titre in titres)
 
         self.covar_matrix = self._covar_m()
         self.corr_matrix = self._corr_m()
@@ -75,7 +68,7 @@ class m_Portfolio(m_structs.PF_TYPE):
         for i in range(n_nb):
             for o in range(n_nb):
                 n1, n2 = (names[i], names[o])
-                matrix[i][o] = self.covar_matrix[n1][n2]/(stdvs[i] * stdvs[o])
+                matrix[i][o] = self.covar_matrix[n1][n2] / (stdvs[i] * stdvs[o])
 
         return m_structs.DataFrame(data=matrix, columns=names, index=names)
 
@@ -87,17 +80,17 @@ class m_Portfolio(m_structs.PF_TYPE):
 
     def avg(self, dot: m_types.FLOAT_COLLECTION) -> m_types.M_FLOAT:
         mus = [el.avg for el in self.assets.values()]
-        assert(len(dot) == len(mus))
+        assert len(dot) == len(mus)
         result: float = 0
         for i in range(len(dot)):
             result += dot[i] * mus[i]
         return m_types.M_FLOAT(result)
 
     def stdv(self, dot: m_types.FLOAT_COLLECTION) -> m_types.M_FLOAT:
-        assert(len(dot) == len(self.assets))
+        assert len(dot) == len(self.assets)
         product = m_maths.dot(m_maths.symmetric_matrix(dot), self.covar_matrix)
         trace = m_maths.sqrt(m_maths.trace(product))
         return m_types.M_FLOAT(trace)
-    
+
     def recap(self) -> str:
         return _portfolio_descriptor(self)

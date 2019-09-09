@@ -6,8 +6,10 @@ from .module_header import Dict
 
 import sqlite3 as sql
 
+
 class _Singleton(type):
     _instances: Dict[str, object] = dict()
+
     def __call__(cls, *args, **kwargs):
         if args[0] not in cls._instances:
             cls._instances[args[0]] = super(_Singleton, cls).__call__(*args, **kwargs)
@@ -29,7 +31,7 @@ class DBCache(object, metaclass=_Singleton):
                 return _Asset.load_sql(self.db, asset)
             else:
                 return MetaDBCache.get(asset)
-        
+
         elif len(assets) > 1:
             pf = list()
             tag = "/".join(assets)
@@ -41,10 +43,8 @@ class DBCache(object, metaclass=_Singleton):
                 return _Portfolio(pf)
             else:
                 return MetaDBCache.get(tag)
-        
+
         return None
 
     def __del__(self):
         self.db.close()
-
-

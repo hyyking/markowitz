@@ -12,11 +12,9 @@ def build_arg_parser():
         description="Display assets and portfolio graphs from layout"
     )
 
-    parser.add_argument('layout', help="Layout file path")
-    parser.add_argument('database', help="Sqlite database path")
-    parser.add_argument(
-        '--debug', help="activate debug mode", action="store_true"
-    )
+    parser.add_argument("layout", help="Layout file path")
+    parser.add_argument("database", help="Sqlite database path")
+    parser.add_argument("--debug", help="activate debug mode", action="store_true")
 
     return parser
 

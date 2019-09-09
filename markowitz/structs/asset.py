@@ -30,9 +30,7 @@ class m_Asset(m_structs.A_TYPE):
 
     @classmethod
     def load_sql(cls, con: sqlite3.Connection, name: str) -> m_types.A_TYPE:
-        main_df = m_utils.read_sql_query(
-                "SELECT * FROM {}".format(name.upper()),
-                con)
+        main_df = m_utils.read_sql_query("SELECT * FROM {}".format(name.upper()), con)
 
         df_var: m_structs.DataFrame = main_df[m_Asset._data_col].pct_change()
         return cls(name, df_var, df_var.mean(), m_maths.sqrt(df_var.var()))
@@ -45,8 +43,5 @@ class m_Asset(m_structs.A_TYPE):
 
     def __repr__(self) -> str:
         return "<Titre: {name} | {lenght} | {avg} | {stdv}>".format(
-                name=self.name,
-                lenght=len(self.df),
-                avg=self.avg,
-                stdv=self.stdv
-            )
+            name=self.name, lenght=len(self.df), avg=self.avg, stdv=self.stdv
+        )
