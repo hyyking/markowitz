@@ -43,6 +43,7 @@ _LAYOUT_SPLIT_REGEX = re.compile(r"&(\w+?)(\((.*?)\))?{(.*?)}")
 _ROWS_REGEX = re.compile(r"\[(.*?)\]")
 _OBJ_REGEX = re.compile(r"(.+?)\((.+?)\)")
 
+
 def parse_objs(objs):
     """ parse the multiple objects """
     for i, objm in enumerate(objs):
@@ -51,12 +52,14 @@ def parse_objs(objs):
         objs[i] = (graph_class, assets)
     return objs
 
+
 def parse_cols(cols):
     """ parse window columns """
     for j, element in enumerate(cols):
         objs = list(_OBJ_REGEX.finditer(element))
         cols[j] = parse_objs(objs)
     return cols
+
 
 def parse_content(con_str):
     """ parse content of the window in layout file """
@@ -67,6 +70,7 @@ def parse_content(con_str):
         max_cols = len(cols) if len(cols) > max_cols else max_cols
         rows[i] = parse_cols(cols)
     return rows, max_cols
+
 
 def parse(raw):
     """ Parse layout file """

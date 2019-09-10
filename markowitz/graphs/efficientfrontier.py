@@ -40,7 +40,7 @@ class EfficientFrontier(AbstractGraph):
         args = (
             (self.precision // 10,)
             if not hasattr(mset, "dirichlet")
-            else (self.pf_size, self.precision // 10,)
+            else (self.pf_size, self.precision // 10)
         )
         dots = mset(*args)
         return zip(

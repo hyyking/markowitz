@@ -4,9 +4,11 @@
 
 from .parser import parse, clean_file
 
+
 def from_string(string):
     """ generate windows from string """
     return parse(clean_file(string))
+
 
 def from_file(file_name):
     """ generate windows from a file """
