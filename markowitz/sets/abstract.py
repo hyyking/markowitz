@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 
 __all__ = "AbstractSet"
 
+
 class AbstractSet(ABC):
     """ Abstract Representation of a mathematical set that can be turned in a point generator """
 

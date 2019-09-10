@@ -1,3 +1,5 @@
+""" Normal Distribution Class Graph """
+
 import numpy as np
 
 from .abstract import AbstractGraph
@@ -29,4 +31,7 @@ class NormalGraph(AbstractGraph):
     def points(self):
         """ Override abstract method to generate gaussian curve points """
         xaxes = Linear(-10, 10, self.precision)
-        return xaxes, xaxes.map(self.density, self.mu * self.scale, self.sigma * self.scale)
+        return zip(
+            xaxes,
+            xaxes.map(self.density, self.mu * self.scale, self.sigma * self.scale),
+        )

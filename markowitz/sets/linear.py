@@ -29,4 +29,6 @@ class Linear(AbstractSet):
 
     def __next__(self):
         self.start += self.step
-        return self.start if self.start <= self.end else StopIteration
+        if self.start > self.end:
+            raise StopIteration
+        return self.start

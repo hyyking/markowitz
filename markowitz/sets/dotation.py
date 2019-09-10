@@ -16,6 +16,7 @@ Example usage:
 from .abstract import AbstractSet
 from .linear import Linear
 
+
 class Dotation2(AbstractSet):
     """ Defined by E = {(x, y) ∊ R^2, x + y = 1} """
 
@@ -49,6 +50,9 @@ class Dotation3(AbstractSet):
         return self
 
     def __next__(self):
+        if self._stepn == self.max:
+            raise StopIteration
+
         if self._inner is None:
             self._inner = Linear(0, self._stepn * self.step, self.max)
 
@@ -60,20 +64,22 @@ class Dotation3(AbstractSet):
             self._inner = None
             self._stepn += 1
             next(self)
+        return x, y, z
 
-        return (x, y, z) if self._stepn < self.max else StopIteration
 
 class DotationDirichlet(AbstractSet):
     """ Defined by E = {(x, ..., x_i), i ∊ R, sum(x...x_i) = 1}
         Points are random but always satisfies the above Vector space
     """
+
     from numpy.random import dirichlet
 
     def __init__(self, dimension: int, until: int):
-        self._content = self.dirichlet((1,) * dimension, until)
+        self._content = iter(self.dirichlet((1,) * dimension, until))
+        print(self._content)
 
     def __iter__(self):
-        return self
+        return self._content
 
     def __next__(self):
         return next(self._content)

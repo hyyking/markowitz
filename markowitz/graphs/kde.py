@@ -1,7 +1,9 @@
+""" Kernel Density Estimation Class Graph """
+
 import numpy as np
 
 from .abstract import AbstractGraph
-from .spaces import RangeSpace
+from ..sets import Linear
 
 
 class Kde(AbstractGraph):
@@ -34,6 +36,6 @@ class Kde(AbstractGraph):
 
     def points(self):
         """ Override abstract method to generate kernel density estimation points """
-        return RangeSpace(-10, 10, self.precision).map(
-            self.estimate, self.df * self.scale, self.stdv * self.scale
-        )
+        x = Linear(-10, 10, self.precision)
+        y = x.map(self.estimate, self.df * self.scale, self.stdv * self.scale)
+        return zip(x, y)

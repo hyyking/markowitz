@@ -1,8 +1,9 @@
+""" Efficient Frontier Graph Class """
+
 from .abstract import AbstractGraph
-from .spaces import DotationSpace
+from ..sets import Dotation2, Dotation3, DotationDirichlet
 
 
-# pylint: disable=too-few-public-methods
 class EfficientFrontier(AbstractGraph):
     """The efficient frontier is a function on plane
        which represents all the efficient asset combinations.
@@ -21,13 +22,31 @@ class EfficientFrontier(AbstractGraph):
         self.legend = "Efficient Frontier"
         self.__dict__.update(config)
 
+    @staticmethod
+    def determine_set(size):
+        """ Determine the set to use for point generation """
+        mset = None
+        if size == 2:
+            mset = Dotation2
+        elif size == 3:
+            mset = Dotation3
+        else:
+            mset = DotationDirichlet
+        return mset
+
     def points(self):
         """ Override abstract method to generate efficient frontier points """
-        dots = DotationSpace(self.pf_size, int(self.precision / 10))
-        lin_mu = dots.map(self.mu)
-        lin_sigma = dots.map(self.sigma)
-        for i, j in zip(lin_sigma, lin_mu):
-            yield (i * self.scale, j * self.scale)
+        mset = EfficientFrontier.determine_set(self.pf_size)
+        args = (
+            (self.precision // 10,)
+            if not hasattr(mset, "dirichlet")
+            else (self.pf_size, self.precision // 10,)
+        )
+        dots = mset(*args)
+        return zip(
+            dots.map(lambda x: self.scale * self.mu(x)),
+            dots.map(lambda x: self.scale * self.sigma(x)),
+        )
 
 
 # Code for third dimension plotting
