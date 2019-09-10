@@ -6,14 +6,30 @@ class Window:
 
     def __init__(self, name, cols, config, content):
         self.name = name
-        self.cfg = config
-        self.content = content
+        self._cols = cols
+        self._cfg = config
 
+        self.content = content
         self.span = self.span_matrix(len(content), cols)
+
+    @property
+    def rows(self):
+        """ length of rows """
+        return len(self.content)
+
+    @property
+    def cols(self):
+        """ length of columns """
+        return self._cols
+
+    @property
+    def cfg(self):
+        """ length of columns """
+        return self._cfg
 
     def span_matrix(self, rows, cols):
         """ create a matrix to  """
-        matrix = [[None for _ in range(cols)] for _ in enumerate(rows)]
+        matrix = [[None for _ in range(cols)] for _ in range(rows)]
 
         for i, row in enumerate(self.content):
             row_t = len(row)
