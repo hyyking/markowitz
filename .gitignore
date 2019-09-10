@@ -1,8 +1,10 @@
-*
-!README.md
-!LICENSE.md
+**/__pycache__
+cac40.db
 
-!markowitz/
-!docs/
-!scripts/
-!layouts/
+.ipynb_checkpoints
+**/.ipynb_checkpoints
+
+.mypy_cache
+**/.mypy_cache
+
+.venv
