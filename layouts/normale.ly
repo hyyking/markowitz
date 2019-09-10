@@ -4,3 +4,8 @@
 	[ NormalGraph(axa) | NormalGraph(lvmh) ]
     [ NormalGraph(peugeot) ]
 }
+
+& norm {
+	[ NormalGraph(axa) | NormalGraph(lvmh) ]
+    [ NormalGraph(peugeot) ]
+}
