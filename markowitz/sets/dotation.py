@@ -18,7 +18,9 @@ from .linear import Linear
 
 
 class Dotation2(AbstractSet):
-    """ Defined by E = {(x, y) ∊ R^2, x + y = 1} """
+    """ Defined by E = {(x, y) ∊ R^2, x + y = 1}
+        Uses spaces.Linear under the hood
+    """
 
     def __init__(self, until: int):
         self.x = Linear(0, 1, until)
@@ -76,7 +78,6 @@ class DotationDirichlet(AbstractSet):
 
     def __init__(self, dimension: int, until: int):
         self._content = iter(self.dirichlet((1,) * dimension, until))
-        print(self._content)
 
     def __iter__(self):
         return self._content
