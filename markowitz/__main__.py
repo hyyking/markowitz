@@ -1,5 +1,5 @@
 from markowitz.structs import DBCache, MetaDBCache
-from markowitz.layout_parser import from_file
+from markowitz.parser import from_file
 from markowitz import consumme_window
 
 import argparse as ap
