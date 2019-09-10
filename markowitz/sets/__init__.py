@@ -15,4 +15,4 @@ Implement your own sets by subclassing AbstractSpace
 """
 
 from .linear import Linear
-from .dotspace import Dotation2, Dotation3
+from .dotation import Dotation2, Dotation3, DotationDirichlet

@@ -1,7 +1,7 @@
 import numpy as np
 
 from .abstract import AbstractGraph
-from .spaces import RangeSpace
+from ..sets import Linear
 
 
 class NormalGraph(AbstractGraph):
@@ -28,6 +28,5 @@ class NormalGraph(AbstractGraph):
 
     def points(self):
         """ Override abstract method to generate gaussian curve points """
-        return RangeSpace(-10, 10, self.precision).map(
-            self.density, self.mu * self.scale, self.sigma * self.scale
-        )
+        xaxes = Linear(-10, 10, self.precision)
+        return xaxes, xaxes.map(self.density, self.mu * self.scale, self.sigma * self.scale)
