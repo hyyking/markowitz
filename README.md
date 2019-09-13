@@ -23,12 +23,16 @@ Or as library:
 - For financial assets abstractions
 - For graphing objects abstractions
 
-You can extend the available graphs by adding them in the `markowitz/graph_objs` directory in
-lowercase, be sure to subclass the Graph class
+## Extending the capabilities 
 
-### To be done
+You can extend the available graphs and sets by adding them in the `markowitz/graphs` and `markowitz/sets` directories.
+- **Sets** are mathematical vector space point iterators. To implement one you need to subclass `markowitz/sets/abstract.py` which will force you to write an iterator and implement `.gen()` and `.map(func, *args, **kwargs)`
 
-- Refactor python code
+- **Graphs** are point iterators that map one set (hence `markowitz/sets`) to a set of points that can be graphed. To implement one you need to subclass `markowitz/graphs/abstract.py` which will force you to write a `points()` method which is called when generating the graph, make sure to zip the coordinates together, eg. `zip(x, y)`. Graphs are loaded dynamically at runtime, use your implementation by mentioning the class name in the layout file, and name your implementation file the same way but ***lowercase***. The abstract class holds the default config for a graph, you can override this config and the config passed when parsing layout files in your implementation.
+
+## To be done
+
+- Refactor python code (only structs left)
 - Add better logging
 - Generate documentation
 - Split website in two parts: project and documentation
@@ -36,7 +40,7 @@ lowercase, be sure to subclass the Graph class
 - Add support for other database types
 - Add ability to specify other graph obj directory
 
-### Credits
+## Credits
 
 Produced by Léo Duret as part of his university annual project following the CMI EFiQuaS curriculum.
 
