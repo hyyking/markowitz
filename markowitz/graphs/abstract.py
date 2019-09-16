@@ -2,6 +2,8 @@
 
 from abc import ABC, abstractmethod
 
+__all__ = "AbstractGraph"
+
 
 class AbstractGraph(ABC):
     """ Abstraction of a graph object """

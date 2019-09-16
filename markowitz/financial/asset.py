@@ -6,6 +6,8 @@ import numpy as np
 
 from .meta import MetaAsset
 
+__all__ = "Asset"
+
 
 @dataclass
 class Asset(metaclass=MetaAsset):

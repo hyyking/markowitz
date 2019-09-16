@@ -1,5 +1,7 @@
 """ MetaAsset Metaclass """
 
+__all__ = "MetaAsset"
+
 
 class MetaAsset(type):
     """ keep only one instance of all assets and portfolio """

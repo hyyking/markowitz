@@ -12,6 +12,8 @@ Example usage:
 from .abstract import AbstractSet
 from .linear import Linear
 
+__all__ = ["Dotation2", "Dotation3", "DotationDirichlet"]
+
 
 class Dotation2(AbstractSet):
     """ Defined by E = {(x, y) ∊ R^2, x + y = 1}

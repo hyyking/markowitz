@@ -3,22 +3,24 @@
 import numpy as np
 import pandas as pd
 
+from .meta import MetaAsset
 
-def symmetric_matrix(points: tuple) -> np.array:
-    """ return the symmetric matrix of a quadratic equation"""
-    matrix = []
+__all__ = "Portfolio"
+
+
+def symmetric_matrix(points: tuple):
+    """ return the symmetric matrix of the quoeficients of a quadratic equation"""
+    matrix = np.zeros((len(points), len(points)))
     for i, _ in enumerate(points):
-        mid = []
         for j, _ in enumerate(points):
             if i == j:
-                mid.append(points[i] * points[j])
+                matrix[i][j] = points[i] * points[j]
                 continue
-            mid.append((points[i] * points[j]) / 2)
-        matrix.append(np.array(mid))
-    return np.array(matrix)
+            matrix[i][j] = (points[i] * points[j]) / 2
+    return matrix
 
 
-class Portfolio:
+class Portfolio(metaclass=MetaAsset):
     """ Representation of a portfolio of assets """
 
     def __init__(self, titres: list):

@@ -1,5 +1,7 @@
 """ Window holder """
 
+__all__ = "Window"
+
 # pylint: disable=too-few-public-methods
 class Window:
     """ Abstraction of a matplotlib window """

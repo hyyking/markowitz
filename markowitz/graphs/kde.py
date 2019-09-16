@@ -5,6 +5,8 @@ import numpy as np
 from .abstract import AbstractGraph
 from ..sets import Linear
 
+__all__ = "Kde"
+
 
 class Kde(AbstractGraph):
     """ Kernel Density Estimation graph """
