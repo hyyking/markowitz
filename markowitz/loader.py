@@ -1,4 +1,3 @@
-
 """ Loader Class """
 
 import sqlite3 as sqll
@@ -27,7 +26,9 @@ class Loader:
         if not_loaded:
             conn = sqll.connect(self.input)
             for name in not_loaded:
-                series = pd.read_sql_query(f"SELECT {self.column} FROM {name.upper()}", conn)
+                series = pd.read_sql_query(
+                    f"SELECT {self.column} FROM {name.upper()}", conn
+                )
                 Asset(name, series[self.column].pct_change().values[1:])
             conn.close()
 
@@ -37,7 +38,6 @@ class Loader:
             return Portfolio([MetaAsset.get(asset) for asset in assets])
 
         raise NotImplementedError
-
 
     def csv(self, assets):
         """ csv loader """

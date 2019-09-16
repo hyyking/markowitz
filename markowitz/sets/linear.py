@@ -24,11 +24,14 @@ class Linear(AbstractSet):
         self.end = end
         self.step = (end - start) / nb
 
+        self.current = self.start
+
     def __iter__(self):
+        self.current = self.start
         return self
 
     def __next__(self):
-        self.start += self.step
-        if self.start > self.end:
+        self.current += self.step
+        if self.current > self.end:
             raise StopIteration
-        return self.start
+        return self.current

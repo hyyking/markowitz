@@ -2,14 +2,10 @@
 
 Example usage:
 ```
-    # 100 points between 0 and 1
-    x = Linear(0, 1, 100)
+    # A tuple of two
+    x = Dotation2(100)
     for i in x:
         print(i)
-
-    # Generate y = ln(x) points between 0 and 1
-    x = Linear(0, 1, 100)
-    y = x.map(math.log, 2)
 ```
 """
 
@@ -44,28 +40,30 @@ class Dotation3(AbstractSet):
 
         # Iteration State
         self._stepn = 0
-        self._inner = None
+        self._innerx = None
+        self._innery = None
+
+    def _reset_xy(self):
+        self._innerx = Linear(0.0, self._stepn * self.step, self.max)
+        self._innery = self._innerx.map(lambda x: 1 - x)
 
     def __iter__(self):
-        self._stepn = 0
-        self._inner = None
+        self._stepn = 1
+        self._reset_xy()
         return self
 
     def __next__(self):
-        if self._stepn == self.max:
+        if self._stepn > self.max:
             raise StopIteration
 
-        if self._inner is None:
-            self._inner = Linear(0, self._stepn * self.step, self.max)
-
+        x = next(self._innerx, None)
+        y = next(self._innery, None)
         z = 1 - self._stepn * self.step
-        x = next(self._inner, None)
-        y = (1 - x) if x is not None else 1
 
-        if x is None:
-            self._inner = None
+        if x is None or y is None:
             self._stepn += 1
-            next(self)
+            self._reset_xy()
+            return next(self)
         return x, y, z
 
 
@@ -77,7 +75,9 @@ class DotationDirichlet(AbstractSet):
     from numpy.random import dirichlet
 
     def __init__(self, dimension: int, until: int):
-        self._content = iter(self.dirichlet((1,) * dimension, until))
+        self._content = iter(
+            self.dirichlet((1,) * dimension, until)
+        )  # pylint: disable=too-many-function-args
 
     def __iter__(self):
         return self._content

@@ -25,14 +25,11 @@ class EfficientFrontier(AbstractGraph):
     @staticmethod
     def determine_set(size):
         """ Determine the set to use for point generation """
-        mset = None
         if size == 2:
-            mset = Dotation2
-        elif size == 3:
-            mset = Dotation3
-        else:
-            mset = DotationDirichlet
-        return mset
+            return Dotation2
+        if size == 3:
+            return Dotation3
+        return DotationDirichlet
 
     def points(self):
         """ Override abstract method to generate efficient frontier points """

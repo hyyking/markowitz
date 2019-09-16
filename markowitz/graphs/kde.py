@@ -17,8 +17,8 @@ class Kde(AbstractGraph):
         self.values = asset.values
 
     def _setup(self, config):
-        self.legend = "KDE"
         self.__dict__.update(config)
+        self.legend = "KDE"
 
     @staticmethod
     def _kernel(k):
@@ -30,7 +30,11 @@ class Kde(AbstractGraph):
         """ Estimation function """
         hyperparamter = 1.06 * (stdv) / np.power(len(values - 1), 0.2)
         results = np.array(
-            [Kde._kernel((point - xi) / hyperparamter) for xi in values if not np.isnan(xi)]
+            [
+                Kde._kernel((point - xi) / hyperparamter)
+                for xi in values
+                if not np.isnan(xi)
+            ]
         )
         return 1.0 / (len(values - 1) * hyperparamter) * np.sum(results)
 

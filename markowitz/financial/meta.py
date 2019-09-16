@@ -3,6 +3,7 @@
 
 class MetaAsset(type):
     """ keep only one instance of all assets and portfolio """
+
     cache = dict()
 
     def __call__(cls, *ls, **kw):
