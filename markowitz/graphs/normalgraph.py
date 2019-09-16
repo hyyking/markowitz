@@ -14,7 +14,6 @@ class NormalGraph(AbstractGraph):
     def __init__(self, asset, **config):
         super(NormalGraph, self).__init__()
         self._setup(config)
-
         self.mu = asset.avg  # pylint: disable=invalid-name
         self.sigma = asset.stdv
         self.legend = f"N({round(self.mu, 2)}, {round(self.sigma, 2)})"

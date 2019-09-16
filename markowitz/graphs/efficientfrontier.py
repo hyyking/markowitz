@@ -19,8 +19,8 @@ class EfficientFrontier(AbstractGraph):
         self.sigma = portfolio.stdv
 
     def _setup(self, config):
-        self.legend = "Efficient Frontier"
         self.__dict__.update(config)
+        self.legend = "Efficient Frontier"
 
     @staticmethod
     def determine_set(size):

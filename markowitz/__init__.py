@@ -1,10 +1,12 @@
-from .graphs import build
+""" PyMarkowitz lib entry """
 
 from matplotlib.pyplot import figure
 from matplotlib.gridspec import GridSpec
 
+from .graphs import build
 
-def consumme_window(window, dbhandle):
+
+def consumme_window(window, loader):
     """ Consumme windows to create plots """
     fig = figure(window.name, figsize=(15, 10))
     grid = GridSpec(window.rows, window.cols, figure=fig)
@@ -17,7 +19,7 @@ def consumme_window(window, dbhandle):
             )
             span += int(window.span[i][j]) - 1
             for cls_name, asset_name in col:
-                graph = build(dbhandle, cls_name, asset_name, **window.cfg)
+                graph = build(loader, cls_name, asset_name, **window.cfg)
                 sub.plot(*zip(*graph.points()), label=graph.legend)
                 sub.set_title(str(asset_name))
                 sub.legend(loc="upper right")

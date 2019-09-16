@@ -9,7 +9,7 @@ def symmetric_matrix(points: tuple) -> np.array:
     matrix = []
     for i, _ in enumerate(points):
         mid = []
-        for j in enumerate(points):
+        for j, _ in enumerate(points):
             if i == j:
                 mid.append(points[i] * points[j])
                 continue

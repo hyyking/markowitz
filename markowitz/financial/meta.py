@@ -24,3 +24,12 @@ class MetaAsset(type):
     def get(key):
         """ get a cached asset """
         return MetaAsset.cache[key]
+
+    @staticmethod
+    def reduce(keys):
+        """ reduce the number of assets to load """
+        if isinstance(keys, str) and keys not in MetaAsset.cache:
+            return [keys]
+        if isinstance(keys, list):
+            return filter(lambda x: x not in MetaAsset.cache, keys)
+        return []

@@ -14,7 +14,7 @@ class Kde(AbstractGraph):
         self._setup(config)
 
         self.stdv = asset.stdv
-        self.df = asset.df
+        self.values = asset.values
 
     def _setup(self, config):
         self.legend = "KDE"
@@ -26,16 +26,16 @@ class Kde(AbstractGraph):
         return (1 / np.sqrt(2 * np.pi)) * np.exp(-0.5 * k * k)
 
     @staticmethod
-    def estimate(point, df, stdv):
+    def estimate(point, values, stdv):
         """ Estimation function """
-        hyperparamter = 1.06 * (stdv) / np.power(len(df - 1), 0.2)
+        hyperparamter = 1.06 * (stdv) / np.power(len(values - 1), 0.2)
         results = np.array(
-            [Kde._kernel((point - xi) / hyperparamter) for xi in df if not np.isnan(xi)]
+            [Kde._kernel((point - xi) / hyperparamter) for xi in values if not np.isnan(xi)]
         )
-        return 1.0 / (len(df - 1) * hyperparamter) * np.sum(results)
+        return 1.0 / (len(values - 1) * hyperparamter) * np.sum(results)
 
     def points(self):
         """ Override abstract method to generate kernel density estimation points """
         x = Linear(-10, 10, self.precision)
-        y = x.map(self.estimate, self.df * self.scale, self.stdv * self.scale)
+        y = x.map(self.estimate, self.values * self.scale, self.stdv * self.scale)
         return zip(x, y)

@@ -1,5 +1,5 @@
 ! docs/layouts/layout2.ly
 
-& 3PF (scale=100) {
+& 3PF {
 	[ EfficientFrontier(axa/lvmh/engie) ]
 }

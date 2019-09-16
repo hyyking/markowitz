@@ -4,8 +4,8 @@ import argparse as ap
 
 from matplotlib.pyplot import show, style
 
-from markowitz.structs import DBCache, MetaDBCache
 from markowitz.parser import from_file
+from markowitz.loader import Loader
 from markowitz import consumme_window
 
 
@@ -16,7 +16,11 @@ def build_arg_parser():
     )
 
     parser.add_argument("layout", help="Layout file path")
-    parser.add_argument("database", help="Sqlite database path")
+    parser.add_argument("input", help="Data input file")
+
+    parser.add_argument("-l", "--loader", help="loader to use", default="sqlite")
+    parser.add_argument("-c", "--column", help="column name in the file", default="clot")
+
     parser.add_argument("--debug", help="activate debug mode", action="store_true")
     parser.add_argument("--style", help="matplotlib graph style", default="bmh")
 
@@ -25,15 +29,13 @@ def build_arg_parser():
 
 if __name__ == "__main__":
     ARGS = build_arg_parser().parse_args()
+
     style.use(ARGS.style)
 
-    if ARGS.debug:
-        MetaDBCache.debug()
-
-    DB = DBCache(ARGS.database)
+    LOADER = Loader(ARGS.loader, ARGS.input, ARGS.column)
     LAYOUT = from_file(ARGS.layout)
 
-    for window in LAYOUT:
-        consumme_window(window, DB)
+    for WINDOW in LAYOUT:
+        consumme_window(WINDOW, LOADER)
 
     show()
