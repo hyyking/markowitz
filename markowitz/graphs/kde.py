@@ -30,15 +30,10 @@ class Kde(AbstractGraph):
     @staticmethod
     def estimate(point, values, stdv):
         """ Estimation function """
-        hyperparamter = 1.06 * (stdv) / np.power(len(values - 1), 0.2)
-        results = np.array(
-            [
-                Kde._kernel((point - xi) / hyperparamter)
-                for xi in values
-                if not np.isnan(xi)
-            ]
-        )
-        return 1.0 / (len(values - 1) * hyperparamter) * np.sum(results)
+        hyperparamter = 1.06 * (stdv) / np.power(len(values), 0.2)
+        results = np.fromiter(
+            map(lambda xi: Kde._kernel((point - xi)/hyperparamter), values), dtype=np.float64)
+        return 1.0 / (len(values) * hyperparamter) * np.sum(results)
 
     def points(self):
         """ Override abstract method to generate kernel density estimation points """

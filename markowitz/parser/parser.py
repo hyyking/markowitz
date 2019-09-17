@@ -17,7 +17,8 @@ def clean_file(content):
 def parse_config(cfg_str):
     """ Parse config from layout file
         default config are the AbstractGraph private fields
-        will be modified affter during execution
+        will be modified affter during execution.
+        & ... (KEY=VALUE, KEY=VALUE, ...) {...}
     """
     cfg = {
         key: value
@@ -45,7 +46,10 @@ _OBJ_REGEX = re.compile(r"(.+?)\((.+?)\)")
 
 
 def parse_objs(objs):
-    """ parse the multiple objects """
+    """ parse the multiple objects
+    Create a tuple holding:
+    ... (GRAPHOBJECT, ASSET/...) ...
+    """
     for i, objm in enumerate(objs):
         graph_class = objm.group(1)
         assets = objm.group(2)
@@ -54,7 +58,11 @@ def parse_objs(objs):
 
 
 def parse_cols(cols):
-    """ parse window columns """
+    """ parse window[row][column]
+    ...
+    [ GRAPHOBJECT(ASSET) GRAPHOBJECT(ASSET/ASSET)
+    ...
+    """
     for j, element in enumerate(cols):
         objs = list(_OBJ_REGEX.finditer(element))
         cols[j] = parse_objs(objs)
@@ -62,7 +70,13 @@ def parse_cols(cols):
 
 
 def parse_content(con_str):
-    """ parse content of the window in layout file """
+    """ Parse content of the window in layout file:
+    ...
+    {
+        [COLUMN01|COLUMN02|...]
+        [COLUMN11|COLUMN12|...]
+    }
+    """
     max_cols = 0
     rows = list(_ROWS_REGEX.finditer(con_str))
     for i, row in enumerate(rows):
@@ -73,7 +87,9 @@ def parse_content(con_str):
 
 
 def parse(raw):
-    """ Parse layout file """
+    """ Parse layout file, windows are defined by:
+    & NAME (OPTIONS) {CONTENT}
+    """
     windows = list()
     for window in _LAYOUT_SPLIT_REGEX.finditer(raw):
 

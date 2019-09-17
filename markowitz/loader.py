@@ -9,12 +9,25 @@ __all__ = "Loader"
 
 
 class Loader:
-    """ Loader instance to load assets """
+    """ Holds the state of the data that could be loaded
+    Works like a switch statement:
+    - _loader becomes the method that will load the assets:
+        - sqlite for sqlite databases
+        - csv for a list of csv files
+        - _default if it's not found
+    - input is a list of input files (first file is used for sqlite)
+    """
 
     def __init__(self, filetype: str, inputfile: str, column: str):
-        self._loader = getattr(self, filetype)
+        self._loader = getattr(self, filetype, "_default")
+        self._filetype = filetype
         self.input = inputfile
         self.column = column
+
+    def _default(self, assets):
+        raise NotImplementedError(
+            f"This loader {self._filetype} is not implemented and will not load {assets}"
+        )
 
     def load(self, asset: str):
         """ load an asset """

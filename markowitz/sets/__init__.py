@@ -5,13 +5,16 @@ Collection of point generators currently featuring:
         Linear set of points
         equivalent to numpy linspace
 
-    - Dotation2(...):
+    - Dotation2(number of values):
         Defined by E = {(x, y) ∊ R^2, x + y = 1}
 
-    - Dotation3(...):
+    - Dotation3(number of values):
         Defined by E = {(x, y, z) ∊ R^3, x + y + z = 1}
 
-Implement your own sets by subclassing AbstractSpace
+    - DotationDirichlet(dimension, number of values):
+        Defined by E = {(x, ..., xi) ∊ R^i, i ∊ N, sum(x, ..., xi) = 1}
+
+Implement your own sets by subclassing AbstractSet
 """
 
 from .linear import Linear

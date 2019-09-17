@@ -431,7 +431,8 @@ good-names=i,
 		   df,
 		   x,
 		   y,
-		   z
+		   z,
+		   mu
 
 # Include a hint for the correct naming format with invalid-name.
 include-naming-hint=no
