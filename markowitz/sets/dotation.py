@@ -78,8 +78,9 @@ class DotationDirichlet(AbstractSet):
 
     def __init__(self, dimension: int, until: int):
         self._content = iter(
+            # pylint: disable=too-many-function-args
             self.dirichlet((1,) * dimension, until)
-        )  # pylint: disable=too-many-function-args
+        )
 
     def __iter__(self):
         return self._content

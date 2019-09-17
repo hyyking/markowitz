@@ -16,7 +16,7 @@ def build_arg_parser():
     )
 
     parser.add_argument("layout", help="Layout file path")
-    parser.add_argument("input", help="Data input file")
+    parser.add_argument("input", help="Data input file", nargs="+")
 
     parser.add_argument("-l", "--loader", help="loader to use", default="sqlite")
     parser.add_argument(
