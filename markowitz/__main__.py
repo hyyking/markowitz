@@ -12,15 +12,22 @@ from markowitz import consumme_window
 def build_arg_parser():
     """ Argument Parser """
     parser = ap.ArgumentParser(
-        description="Display assets and portfolio graphs from layout"
+        prog="PyMarkowitz",
+        description="Display Assets and Portfolio Graphs from Layout Files",
+        usage="%(prog)s [options] LAYOUT INPUT [INPUT...]",
     )
 
-    parser.add_argument("layout", help="Layout file path")
-    parser.add_argument("input", help="Data input file", nargs="+")
+    parser.add_argument("layout", help="layout file path")
+    parser.add_argument("input", help="data input file(s)", nargs="+")
 
-    parser.add_argument("-l", "--loader", help="loader to use", default="sqlite")
     parser.add_argument(
-        "-c", "--column", help="column name in the file", default="clot"
+        "-l", "--loader", help="loader (default: %(default)s)", default="sqlite"
+    )
+    parser.add_argument(
+        "-c",
+        "--column",
+        help="name of the header (default: %(default)s)",
+        default="clot",
     )
 
     parser.add_argument("--debug", help="activate debug mode", action="store_true")
@@ -33,6 +40,8 @@ if __name__ == "__main__":
     ARGS = build_arg_parser().parse_args()
 
     style.use(ARGS.style)
+
+    # NOTE: ADD DEBUG MODE
 
     LOADER = Loader(ARGS.loader, ARGS.input, ARGS.column)
     LAYOUT = from_file(ARGS.layout)

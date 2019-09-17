@@ -2,10 +2,17 @@
 
 Example usage:
 ```
-    # A tuple of two
-    x = Dotation2(100)
+    # A tuple of two dotations
+
+    x = Dotation2(10)
     for i in x:
         print(i)
+
+    # Output:
+    # (0.0, 1.0)
+    # (0.1, 0.9)
+    # (0.2, 0.8)
+    # ...
 ```
 """
 
@@ -33,7 +40,7 @@ class Dotation2(AbstractSet):
 
 class Dotation3(AbstractSet):
     """ Defined by E = {(x, y, z) ∊ R^3, x + y + z = 1}
-        Computed by rasterizing Barycentric coordinates
+        Computed by rasterizing barycentric coordinates
     """
 
     def __init__(self, until: int):
@@ -71,7 +78,8 @@ class Dotation3(AbstractSet):
 
 class DotationDirichlet(AbstractSet):
     """ Defined by E = {(x, ..., x_i), i ∊ R, sum(x...x_i) = 1}
-        Points are random but always satisfies the above Vector space
+        Points are random but always satisfy the above Vector space.
+        Wrapper around numpy.random.dirichlet
     """
 
     from numpy.random import dirichlet

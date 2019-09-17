@@ -10,7 +10,7 @@ class AbstractGraph(ABC):
 
     _precision = 1000
     _scale = 1
-    _legend = ""
+    _legend = "Default Legend"
 
     @abstractmethod
     def points(self):

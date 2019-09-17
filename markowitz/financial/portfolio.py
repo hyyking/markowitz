@@ -16,7 +16,7 @@ def symmetric_matrix(points: tuple):
             if i == j:
                 matrix[i][j] = points[i] * points[j]
                 continue
-            matrix[i][j] = (points[i] * points[j]) / 2
+            matrix[i][j] = (points[i] * points[j]) / 2.0
     return matrix
 
 
@@ -83,8 +83,7 @@ class Portfolio(metaclass=MetaAsset):
 
     def stdv(self, dot: tuple) -> np.float64:
         """ return the risk of the portfolio for this asset distribution """
-        product = np.dot(symmetric_matrix(dot), self.covar_matrix)
-        return np.sqrt(np.trace(product))
+        return np.sqrt(np.trace(np.dot(symmetric_matrix(dot), self.covar_matrix)))
 
     def recap(self) -> str:
         """ recap dataframe of the portfolio """

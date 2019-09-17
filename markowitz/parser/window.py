@@ -1,10 +1,16 @@
-""" Window holder """
+""" Window Class """
 
 __all__ = "Window"
 
-# pylint: disable=too-few-public-methods
+
 class Window:
-    """ Abstraction of a matplotlib window """
+    """ Abstraction of a matplotlib figure
+    Contains:
+    - the name of the graph obj
+    - the name of the assets
+    - the config of the window (passed down to the graphs)
+    - the span matrix so the subplot are adjusted correctly
+    """
 
     def __init__(self, name, cols, config, content):
         self.name = name

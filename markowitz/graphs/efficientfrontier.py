@@ -17,7 +17,7 @@ class EfficientFrontier(AbstractGraph):
         self._setup(config)
 
         self.pf_size = len(portfolio)
-        self.mu = portfolio.avg  # pylint: disable=invalid-name
+        self.mu = portfolio.avg
         self.sigma = portfolio.stdv
 
     def _setup(self, config):

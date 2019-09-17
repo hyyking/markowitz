@@ -12,16 +12,17 @@ class MetaAsset(type):
         names = ls[0]
 
         if isinstance(names, str):
-            name = names
-            if name not in cls.cache:
-                cls.cache[name] = super(MetaAsset, cls).__call__(*ls, **kw)
+            if names not in cls.cache:
+                cls.cache[names] = super(MetaAsset, cls).__call__(*ls, **kw)
 
         elif isinstance(names, list):
-            name = "/".join([n.name for n in names])
-            if name not in cls.cache:
-                cls.cache[name] = super(MetaAsset, cls).__call__(*ls, **kw)
+            names = "/".join([n.name for n in names])
+            if names not in cls.cache:
+                cls.cache[names] = super(MetaAsset, cls).__call__(*ls, **kw)
+        else:
+            raise NotImplementedError
 
-        return cls.cache[name]
+        return cls.cache[names]
 
     @staticmethod
     def get(key):
@@ -30,7 +31,7 @@ class MetaAsset(type):
 
     @staticmethod
     def reduce(keys):
-        """ reduce the number of assets to load """
+        """ reduce the list of assets to load """
         if isinstance(keys, str) and keys not in MetaAsset.cache:
             return [keys]
         if isinstance(keys, list):
