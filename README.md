@@ -48,11 +48,11 @@ Or as individual modules:
 Syntax:
 
 ```
-!						<- comment marker
-&						<- start of a new window
-(KEY=VALUE)				<- specify options
-[]						<- row
-|						<- column delimiter
+!	<- comment marker
+&	<- start of a new window
+(KEY=VALUE)	<- specify options
+[]	<- row
+|	<- column delimiter
 & NAME (OPTIONS) {[|]}  <- valid window
 ```
 
