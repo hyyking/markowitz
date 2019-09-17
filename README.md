@@ -66,7 +66,7 @@ Example:
 }
 ```
 
-[Example Output](docs/img/example.png)
+![Example Output](docs/img/example.png)
 
 ## Extending the capabilities
 
