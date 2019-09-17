@@ -9,31 +9,30 @@ modern portfolio theory.
 
 For this you will need two files:
 
-- A layout file (for now see examples in layouts directory)
-- A SQLite database or a list of csv files (specify with `-l` in the options default is `sqlite`)
-  with historical data, specify the header you want to load by providing an argument to `-c`
-  (default is `clot`).
+- A layout file (see below)
+
+- A SQLite database or a list of CSV files, specify the loader with `-l` flag with historical data,
+  specify the header you want to load by providing an argument to `-c`.
 
 You can use this package as a CLI:
 
 ```
 >> python -m markowitz --help
 
-usage: __main__.py [-h] [-l LOADER] [-c COLUMN] [--debug] [--style STYLE]
-                   layout input [input ...]
+usage: PyMarkowitz [options] LAYOUT INPUT [INPUT...]
 
-Display assets and portfolio graphs from layout
+Display Assets and Portfolio Graphs from Layout Files
 
 positional arguments:
-  layout                Layout file path
-  input                 Data input file
+  layout                layout file path
+  input                 data input file(s)
 
 optional arguments:
   -h, --help            show this help message and exit
   -l LOADER, --loader LOADER
-                        loader to use available: [sqlite, csv]
+                        loader (default: sqlite)
   -c COLUMN, --column COLUMN
-                        column name in the file
+                        name of the header (default: clot)
   --debug               activate debug mode
   --style STYLE         matplotlib graph style
 ```
@@ -43,6 +42,31 @@ Or as individual modules:
 - `markowitz/graphs` for graph points generators
 - `markowitz/sets` for point generators
 - `markowitz/financial` for the assets
+
+## Layout Files
+
+Syntax:
+
+```
+!						<- comment marker
+&						<- start of a new window
+(KEY=VALUE)				<- specify options
+[]						<- row
+|						<- column delimiter
+& NAME (OPTIONS) {[|]}  <- valid window
+```
+
+Example:
+
+```
+! Compare the distribution of two assets
+& Compare (precision=100, scale=100) {
+	[ Kde(asset1) Kde(asset2) ]
+	[ NormalGraph(asset1) | NormalGraph(asset2) ]
+}
+```
+
+[Example Output](docs/img/example.png)
 
 ## Extending the capabilities
 

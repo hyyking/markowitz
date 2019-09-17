@@ -14,13 +14,13 @@ class Kde(AbstractGraph):
     def __init__(self, asset, **config):
         super(Kde, self).__init__()
         self._setup(config)
+        self.legend = f"{asset.name} KDE"
 
         self.stdv = asset.stdv
         self.values = asset.values
 
     def _setup(self, config):
         self.__dict__.update(config)
-        self.legend = "KDE"
 
     @staticmethod
     def _kernel(k):
