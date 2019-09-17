@@ -32,7 +32,9 @@ class Kde(AbstractGraph):
         """ Estimation function """
         hyperparamter = 1.06 * (stdv) / np.power(len(values), 0.2)
         results = np.fromiter(
-            map(lambda xi: Kde._kernel((point - xi)/hyperparamter), values), dtype=np.float64)
+            map(lambda xi: Kde._kernel((point - xi) / hyperparamter), values),
+            dtype=np.float64,
+        )
         return 1.0 / (len(values) * hyperparamter) * np.sum(results)
 
     def points(self):

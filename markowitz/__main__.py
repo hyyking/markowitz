@@ -14,15 +14,20 @@ def build_arg_parser():
     parser = ap.ArgumentParser(
         prog="PyMarkowitz",
         description="Display Assets and Portfolio Graphs from Layout Files",
-        usage="%(prog)s [options] LAYOUT INPUT [INPUT...]"
+        usage="%(prog)s [options] LAYOUT INPUT [INPUT...]",
     )
 
     parser.add_argument("layout", help="layout file path")
     parser.add_argument("input", help="data input file(s)", nargs="+")
 
-    parser.add_argument("-l", "--loader", help="loader (default: %(default)s)", default="sqlite")
     parser.add_argument(
-        "-c", "--column", help="name of the header (default: %(default)s)", default="clot"
+        "-l", "--loader", help="loader (default: %(default)s)", default="sqlite"
+    )
+    parser.add_argument(
+        "-c",
+        "--column",
+        help="name of the header (default: %(default)s)",
+        default="clot",
     )
 
     parser.add_argument("--debug", help="activate debug mode", action="store_true")
