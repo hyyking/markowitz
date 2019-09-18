@@ -3,7 +3,7 @@
 from .abstract import AbstractGraph
 from ..sets import Dotation2, Dotation3, DotationDirichlet
 
-__all__ = "EfficientFrontier"
+__all__ = ["EfficientFrontier"]
 
 
 class EfficientFrontier(AbstractGraph):

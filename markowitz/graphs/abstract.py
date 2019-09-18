@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-__all__ = "AbstractGraph"
+__all__ = ["AbstractGraph"]
 
 
 class AbstractGraph(ABC):

@@ -15,7 +15,7 @@ Example usage:
 
 from .abstract import AbstractSet
 
-__all__ = "Linear"
+__all__ = ["Linear"]
 
 
 class Linear(AbstractSet):

@@ -1,6 +1,7 @@
 """Set Module
 
 Collection of point generators currently featuring:
+
     - Linear(start, end, number of values):
         Linear set of points
         equivalent to numpy linspace
