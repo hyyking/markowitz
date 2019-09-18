@@ -1,6 +1,6 @@
 """ MetaAsset Metaclass """
 
-__all__ = "MetaAsset"
+__all__ = ["MetaAsset"]
 
 
 class MetaAsset(type):

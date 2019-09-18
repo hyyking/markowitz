@@ -5,7 +5,7 @@ import numpy as np
 from .abstract import AbstractGraph
 from ..sets import Linear
 
-__all__ = "NormalGraph"
+__all__ = ["NormalGraph"]
 
 
 class NormalGraph(AbstractGraph):

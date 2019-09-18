@@ -3,7 +3,7 @@ from os import listdir
 import sqlite3 as s3
 import pandas as pd
 
-__all__ = "Table"
+__all__ = ["Table"]
 
 
 class Table:

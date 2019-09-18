@@ -5,7 +5,7 @@ import pandas as pd
 
 from .financial import MetaAsset, Asset, Portfolio
 
-__all__ = "Loader"
+__all__ = ["Loader"]
 
 
 class Loader:

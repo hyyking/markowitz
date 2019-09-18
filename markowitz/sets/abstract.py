@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-__all__ = "AbstractSet"
+__all__ = ["AbstractSet"]
 
 
 class AbstractSet(ABC):

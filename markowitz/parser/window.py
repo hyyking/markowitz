@@ -1,6 +1,6 @@
 """ Window Class """
 
-__all__ = "Window"
+__all__ = ["Window"]
 
 
 class Window:

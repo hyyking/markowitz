@@ -5,7 +5,7 @@ import pandas as pd
 
 from .meta import MetaAsset
 
-__all__ = "Portfolio"
+__all__ = ["Portfolio"]
 
 
 def symmetric_matrix(points: tuple):
