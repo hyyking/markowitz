@@ -1,396 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1"
-    />
-    <meta name="generator" content="pdoc 0.6.3" />
-    <title>markowitz.parser.parser API documentation</title>
-    <meta
-      name="description"
-      content="*.ly file parser
-Using regex so most errors are ignored except when translating to concrete types"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      .flex {
-        display: flex !important;
-      }
-      body {
-        line-height: 1.5em;
-      }
-      #content {
-        padding: 20px;
-      }
-      #sidebar {
-        padding: 30px;
-        overflow: hidden;
-      }
-      .http-server-breadcrumbs {
-        font-size: 130%;
-        margin: 0 0 15px 0;
-      }
-      #footer {
-        font-size: 0.75em;
-        padding: 5px 30px;
-        border-top: 1px solid #ddd;
-        text-align: right;
-      }
-      #footer p {
-        margin: 0 0 0 1em;
-        display: inline-block;
-      }
-      #footer p:last-child {
-        margin-right: 30px;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-weight: 300;
-      }
-      h1 {
-        font-size: 2.5em;
-        line-height: 1.1em;
-      }
-      h2 {
-        font-size: 1.75em;
-        margin: 1em 0 0.5em 0;
-      }
-      h3 {
-        font-size: 1.4em;
-        margin: 25px 0 10px 0;
-      }
-      h4 {
-        margin: 0;
-        font-size: 105%;
-      }
-      a {
-        color: #058;
-        text-decoration: none;
-        transition: color 0.3s ease-in-out;
-      }
-      a:hover {
-        color: #e82;
-      }
-      .title code {
-        font-weight: bold;
-      }
-      h2[id^="header-"] {
-        margin-top: 2em;
-      }
-      .ident {
-        color: #900;
-      }
-      pre code {
-        background: #f8f8f8;
-        font-size: 0.8em;
-        line-height: 1.4em;
-      }
-      code {
-        background: #f2f2f1;
-        padding: 1px 4px;
-        overflow-wrap: break-word;
-      }
-      h1 code {
-        background: transparent;
-      }
-      pre {
-        background: #f8f8f8;
-        border: 0;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin: 1em 0;
-        padding: 1ex;
-      }
-      #http-server-module-list {
-        display: flex;
-        flex-flow: column;
-      }
-      #http-server-module-list div {
-        display: flex;
-      }
-      #http-server-module-list dt {
-        min-width: 10%;
-      }
-      #http-server-module-list p {
-        margin-top: 0;
-      }
-      .toc ul,
-      #index {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      #index code {
-        background: transparent;
-      }
-      #index h3 {
-        border-bottom: 1px solid #ddd;
-      }
-      #index ul {
-        padding: 0;
-      }
-      #index h4 {
-        font-weight: bold;
-      }
-      #index h4 + ul {
-        margin-bottom: 0.6em;
-      }
-      @media (min-width: 200ex) {
-        #index .two-column {
-          column-count: 2;
-        }
-      }
-      @media (min-width: 300ex) {
-        #index .two-column {
-          column-count: 3;
-        }
-      }
-      dl {
-        margin-bottom: 2em;
-      }
-      dl dl:last-child {
-        margin-bottom: 4em;
-      }
-      dd {
-        margin: 0 0 1em 3em;
-      }
-      #header-classes + dl > dd {
-        margin-bottom: 3em;
-      }
-      dd dd {
-        margin-left: 2em;
-      }
-      dd p {
-        margin: 10px 0;
-      }
-      .name {
-        background: #eee;
-        font-weight: bold;
-        font-size: 0.85em;
-        padding: 5px 10px;
-        display: inline-block;
-        min-width: 40%;
-      }
-      .name:hover {
-        background: #e0e0e0;
-      }
-      .name > span:first-child {
-        white-space: nowrap;
-      }
-      .name.class > span:nth-child(2) {
-        margin-left: 0.4em;
-      }
-      .inherited {
-        color: #999;
-        border-left: 5px solid #eee;
-        padding-left: 1em;
-      }
-      .inheritance em {
-        font-style: normal;
-        font-weight: bold;
-      }
-      .desc h2 {
-        font-weight: 400;
-        font-size: 1.25em;
-      }
-      .desc h3 {
-        font-size: 1em;
-      }
-      .desc dt code {
-        background: inherit;
-      }
-      .source summary {
-        color: #666;
-        text-align: right;
-        font-weight: 400;
-        font-size: 0.8em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-      .source pre {
-        max-height: 500px;
-        overflow: auto;
-        margin: 0;
-      }
-      .source pre code {
-        font-size: 12px;
-        overflow: visible;
-      }
-      .hlist {
-        list-style: none;
-      }
-      .hlist li {
-        display: inline;
-      }
-      .hlist li:after {
-        content: ",\2002";
-      }
-      .hlist li:last-child:after {
-        content: none;
-      }
-      .hlist .hlist {
-        display: inline;
-        padding-left: 1em;
-      }
-      img {
-        max-width: 100%;
-      }
-      .admonition {
-        padding: 0.1em 0.5em;
-        margin-bottom: 1em;
-      }
-      .admonition-title {
-        font-weight: bold;
-      }
-      .admonition.note,
-      .admonition.info,
-      .admonition.important {
-        background: #aef;
-      }
-      .admonition.todo,
-      .admonition.versionadded,
-      .admonition.tip,
-      .admonition.hint {
-        background: #dfd;
-      }
-      .admonition.warning,
-      .admonition.versionchanged,
-      .admonition.deprecated {
-        background: #fd4;
-      }
-      .admonition.error,
-      .admonition.danger,
-      .admonition.caution {
-        background: lightpink;
-      }
-    </style>
-    <style media="screen and (min-width: 700px)">
-      @media screen and (min-width: 700px) {
-        #sidebar {
-          width: 30%;
-        }
-        #content {
-          width: 70%;
-          max-width: 100ch;
-          padding: 3em 4em;
-          border-left: 1px solid #ddd;
-        }
-        pre code {
-          font-size: 1em;
-        }
-        .item .name {
-          font-size: 1em;
-        }
-        main {
-          display: flex;
-          flex-direction: row-reverse;
-          justify-content: flex-end;
-        }
-        .toc ul ul,
-        #index ul {
-          padding-left: 1.5em;
-        }
-        .toc > ul > li {
-          margin-top: 0.5em;
-        }
-      }
-    </style>
-    <style media="print">
-      @media print {
-        #sidebar h1 {
-          page-break-before: always;
-        }
-        .source {
-          display: none;
-        }
-      }
-      @media print {
-        * {
-          background: transparent !important;
-          color: #000 !important;
-          box-shadow: none !important;
-          text-shadow: none !important;
-        }
-        a[href]:after {
-          content: " (" attr(href) ")";
-          font-size: 90%;
-        }
-        a[href][title]:after {
-          content: none;
-        }
-        abbr[title]:after {
-          content: " (" attr(title) ")";
-        }
-        .ir a:after,
-        a[href^="javascript:"]:after,
-        a[href^="#"]:after {
-          content: "";
-        }
-        pre,
-        blockquote {
-          border: 1px solid #999;
-          page-break-inside: avoid;
-        }
-        thead {
-          display: table-header-group;
-        }
-        tr,
-        img {
-          page-break-inside: avoid;
-        }
-        img {
-          max-width: 100% !important;
-        }
-        @page {
-          margin: 0.5cm;
-        }
-        p,
-        h2,
-        h3 {
-          orphans: 3;
-          widows: 3;
-        }
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          page-break-after: avoid;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <article id="content">
-        <header>
-          <h1 class="title">Module <code>markowitz.parser.parser</code></h1>
-        </header>
-        <section id="section-intro">
-          <p>
-            *.ly file parser Using regex so most errors are ignored except when
-            translating to concrete types
-          </p>
-          <details class="source">
-            <summary>Source code</summary>
-            <pre><code class="python">&#34;&#34;&#34; *.ly file parser
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>markowitz.parser.parser API documentation</title>
+<meta name="description" content="*.ly file parser
+Using regex so most errors are ignored except when translating to concrete types" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>markowitz.parser.parser</code></h1>
+</header>
+<section id="section-intro">
+<p>*.ly file parser
+Using regex so most errors are ignored except when translating to concrete types</p>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">&#34;&#34;&#34; *.ly file parser
     Using regex so most errors are ignored except when translating to concrete types
 &#34;&#34;&#34;
 import re
@@ -491,48 +126,38 @@ def parse(raw):
 
         windows.append(Window(name, max_cols, config, content))
     return windows</code></pre>
-          </details>
-        </section>
-        <section></section>
-        <section></section>
-        <section>
-          <h2 class="section-title" id="header-functions">Functions</h2>
-          <dl>
-            <dt id="markowitz.parser.parser.clean_file">
-              <code class="name flex">
-                <span>def <span class="ident">clean_file</span></span
-                >(<span>content)</span>
-              </code>
-            </dt>
-            <dd>
-              <section class="desc">
-                <p>clean comments and whitespace</p>
-              </section>
-              <details class="source">
-                <summary>Source code</summary>
-                <pre><code class="python">def clean_file(content):
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="markowitz.parser.parser.clean_file"><code class="name flex">
+<span>def <span class="ident">clean_file</span></span>(<span>content)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>clean comments and whitespace</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def clean_file(content):
     &#34;&#34;&#34; clean comments and whitespace &#34;&#34;&#34;
     no_comments = re.sub(r&#34;!.*?\n&#34;, &#34;&#34;, content)
     no_escape = re.sub(r&#34;[\n\t\s]&#34;, &#34;&#34;, no_comments)
     return no_escape</code></pre>
-              </details>
-            </dd>
-            <dt id="markowitz.parser.parser.parse">
-              <code class="name flex">
-                <span>def <span class="ident">parse</span></span
-                >(<span>raw)</span>
-              </code>
-            </dt>
-            <dd>
-              <section class="desc">
-                <p>
-                  Parse layout file, windows are defined by: &amp; NAME
-                  (OPTIONS) {CONTENT}
-                </p>
-              </section>
-              <details class="source">
-                <summary>Source code</summary>
-                <pre><code class="python">def parse(raw):
+</details>
+</dd>
+<dt id="markowitz.parser.parser.parse"><code class="name flex">
+<span>def <span class="ident">parse</span></span>(<span>raw)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Parse layout file, windows are defined by:
+&amp; NAME (OPTIONS) {CONTENT}</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def parse(raw):
     &#34;&#34;&#34; Parse layout file, windows are defined by:
     &amp; NAME (OPTIONS) {CONTENT}
     &#34;&#34;&#34;
@@ -545,24 +170,19 @@ def parse(raw):
 
         windows.append(Window(name, max_cols, config, content))
     return windows</code></pre>
-              </details>
-            </dd>
-            <dt id="markowitz.parser.parser.parse_cols">
-              <code class="name flex">
-                <span>def <span class="ident">parse_cols</span></span
-                >(<span>cols)</span>
-              </code>
-            </dt>
-            <dd>
-              <section class="desc">
-                <p>
-                  parse window[row][column] &hellip; [ GRAPHOBJECT(ASSET)
-                  GRAPHOBJECT(ASSET/ASSET) &hellip;
-                </p>
-              </section>
-              <details class="source">
-                <summary>Source code</summary>
-                <pre><code class="python">def parse_cols(cols):
+</details>
+</dd>
+<dt id="markowitz.parser.parser.parse_cols"><code class="name flex">
+<span>def <span class="ident">parse_cols</span></span>(<span>cols)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>parse window[row][column]
+&hellip;
+[ GRAPHOBJECT(ASSET) GRAPHOBJECT(ASSET/ASSET)
+&hellip;</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def parse_cols(cols):
     &#34;&#34;&#34; parse window[row][column]
     ...
     [ GRAPHOBJECT(ASSET) GRAPHOBJECT(ASSET/ASSET)
@@ -572,26 +192,19 @@ def parse(raw):
         objs = list(_OBJ_REGEX.finditer(element))
         cols[j] = parse_objs(objs)
     return cols</code></pre>
-              </details>
-            </dd>
-            <dt id="markowitz.parser.parser.parse_config">
-              <code class="name flex">
-                <span>def <span class="ident">parse_config</span></span
-                >(<span>cfg_str)</span>
-              </code>
-            </dt>
-            <dd>
-              <section class="desc">
-                <p>
-                  Parse config from layout file default config are the
-                  AbstractGraph private fields will be modified affter during
-                  execution. &amp; &hellip; (KEY=VALUE, KEY=VALUE, &hellip;)
-                  {&hellip;}
-                </p>
-              </section>
-              <details class="source">
-                <summary>Source code</summary>
-                <pre><code class="python">def parse_config(cfg_str):
+</details>
+</dd>
+<dt id="markowitz.parser.parser.parse_config"><code class="name flex">
+<span>def <span class="ident">parse_config</span></span>(<span>cfg_str)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Parse config from layout file
+default config are the AbstractGraph private fields
+will be modified affter during execution.
+&amp; &hellip; (KEY=VALUE, KEY=VALUE, &hellip;) {&hellip;}</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def parse_config(cfg_str):
     &#34;&#34;&#34; Parse config from layout file
         default config are the AbstractGraph private fields
         will be modified affter during execution.
@@ -615,24 +228,21 @@ def parse(raw):
             cfg[name] = type(cfg[name])(value)
 
     return cfg</code></pre>
-              </details>
-            </dd>
-            <dt id="markowitz.parser.parser.parse_content">
-              <code class="name flex">
-                <span>def <span class="ident">parse_content</span></span
-                >(<span>con_str)</span>
-              </code>
-            </dt>
-            <dd>
-              <section class="desc">
-                <p>
-                  Parse content of the window in layout file: &hellip; {
-                  [COLUMN01|COLUMN02|&hellip;] [COLUMN11|COLUMN12|&hellip;] }
-                </p>
-              </section>
-              <details class="source">
-                <summary>Source code</summary>
-                <pre><code class="python">def parse_content(con_str):
+</details>
+</dd>
+<dt id="markowitz.parser.parser.parse_content"><code class="name flex">
+<span>def <span class="ident">parse_content</span></span>(<span>con_str)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Parse content of the window in layout file:
+&hellip;
+{
+[COLUMN01|COLUMN02|&hellip;]
+[COLUMN11|COLUMN12|&hellip;]
+}</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def parse_content(con_str):
     &#34;&#34;&#34; Parse content of the window in layout file:
     ...
     {
@@ -647,24 +257,18 @@ def parse(raw):
         max_cols = len(cols) if len(cols) &gt; max_cols else max_cols
         rows[i] = parse_cols(cols)
     return rows, max_cols</code></pre>
-              </details>
-            </dd>
-            <dt id="markowitz.parser.parser.parse_objs">
-              <code class="name flex">
-                <span>def <span class="ident">parse_objs</span></span
-                >(<span>objs)</span>
-              </code>
-            </dt>
-            <dd>
-              <section class="desc">
-                <p>
-                  parse the multiple objects Create a tuple holding: &hellip;
-                  (GRAPHOBJECT, ASSET/&hellip;) &hellip;
-                </p>
-              </section>
-              <details class="source">
-                <summary>Source code</summary>
-                <pre><code class="python">def parse_objs(objs):
+</details>
+</dd>
+<dt id="markowitz.parser.parser.parse_objs"><code class="name flex">
+<span>def <span class="ident">parse_objs</span></span>(<span>objs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>parse the multiple objects
+Create a tuple holding:
+&hellip; (GRAPHOBJECT, ASSET/&hellip;) &hellip;</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def parse_objs(objs):
     &#34;&#34;&#34; parse the multiple objects
     Create a tuple holding:
     ... (GRAPHOBJECT, ASSET/...) ...
@@ -674,101 +278,41 @@ def parse(raw):
         assets = objm.group(2)
         objs[i] = (graph_class, assets)
     return objs</code></pre>
-              </details>
-            </dd>
-          </dl>
-        </section>
-        <section></section>
-      </article>
-      <nav id="sidebar">
-        <h1>Index</h1>
-        <div class="toc">
-          <ul></ul>
-        </div>
-        <ul id="index">
-          <li>
-            <h3>Super-module</h3>
-            <ul>
-              <li>
-                <code
-                  ><a title="markowitz.parser" href="index.html"
-                    >markowitz.parser</a
-                  ></code
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <h3><a href="#header-functions">Functions</a></h3>
-            <ul class="two-column">
-              <li>
-                <code
-                  ><a
-                    title="markowitz.parser.parser.clean_file"
-                    href="#markowitz.parser.parser.clean_file"
-                    >clean_file</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a
-                    title="markowitz.parser.parser.parse"
-                    href="#markowitz.parser.parser.parse"
-                    >parse</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a
-                    title="markowitz.parser.parser.parse_cols"
-                    href="#markowitz.parser.parser.parse_cols"
-                    >parse_cols</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a
-                    title="markowitz.parser.parser.parse_config"
-                    href="#markowitz.parser.parser.parse_config"
-                    >parse_config</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a
-                    title="markowitz.parser.parser.parse_content"
-                    href="#markowitz.parser.parser.parse_content"
-                    >parse_content</a
-                  ></code
-                >
-              </li>
-              <li>
-                <code
-                  ><a
-                    title="markowitz.parser.parser.parse_objs"
-                    href="#markowitz.parser.parser.parse_objs"
-                    >parse_objs</a
-                  ></code
-                >
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </main>
-    <footer id="footer">
-      <p>
-        Generated by
-        <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.
-      </p>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-    </script>
-  </body>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="markowitz.parser" href="index.html">markowitz.parser</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="markowitz.parser.parser.clean_file" href="#markowitz.parser.parser.clean_file">clean_file</a></code></li>
+<li><code><a title="markowitz.parser.parser.parse" href="#markowitz.parser.parser.parse">parse</a></code></li>
+<li><code><a title="markowitz.parser.parser.parse_cols" href="#markowitz.parser.parser.parse_cols">parse_cols</a></code></li>
+<li><code><a title="markowitz.parser.parser.parse_config" href="#markowitz.parser.parser.parse_config">parse_config</a></code></li>
+<li><code><a title="markowitz.parser.parser.parse_content" href="#markowitz.parser.parser.parse_content">parse_content</a></code></li>
+<li><code><a title="markowitz.parser.parser.parse_objs" href="#markowitz.parser.parser.parse_objs">parse_objs</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
 </html>
